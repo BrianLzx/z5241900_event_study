@@ -6,4 +6,4 @@ import os
 
 
 PRJDIR = '/Users/lizixu/PycharmProjects/toolkit'
-DATADIR = os.path.join(PRJDIR, 'data')
+DATADIR = os.path.join(PRJDIR, '../data')

@@ -17,8 +17,8 @@ import toolkit_config as cfg
 #     paths using methods from the `os` module
 #   - See the assessment description for more information
 # ----------------------------------------------------------------------------
-ROOTDIR = os.path.join(cfg.PRJDIR,"project1")
-DATDIR = os.path.join(ROOTDIR,"data")
+ROOTDIR = os.path.join(cfg.PRJDIR, "../project1")
+DATDIR = os.path.join(ROOTDIR, "../data")
 TICPATH = os.path.join(ROOTDIR,"TICKERS.txt")
 
 # print(ROOTDIR)
