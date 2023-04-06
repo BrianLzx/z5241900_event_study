@@ -4,7 +4,7 @@
 import json
 import os
 
-import toolkit_config as cfg
+from lectures import toolkit_config as cfg
 
 # ----------------------------------------------------------------------------
 # Location of files and folders
