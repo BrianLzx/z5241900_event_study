@@ -2,14 +2,12 @@
 
 Utilities to calculate stock and market returns
 """
-
 import pandas as pd
 
 import event_study.config as cfg
 
-
 # Function to read prices and calculate returns
-def mk_ret_df(tic): 
+def mk_ret_df(tic):
     """ Calculates return variables for the ticker `tic`
 
     Parameters
@@ -38,21 +36,17 @@ def mk_ret_df(tic):
 
     """
 
-
     # 1. Get the location of the CSV file with the price information for `tic`
     locs = cfg.csv_locs(tic)
     pth = locs['prc_csv']
-
 
     # 2. Read the CSV file into a data frame
     df = pd.read_csv(pth, index_col='Date', parse_dates=['Date'])
     df = cfg.standardise_colnames(df)
 
-
     # 3. Calculate returns
     df.sort_index(inplace=True)
     df.loc[:, 'ret'] = df.loc[:, 'close'].pct_change()
-
 
     # 4. Join market returns
     # 4.1: Get market returns
@@ -65,13 +59,10 @@ def mk_ret_df(tic):
     df = df.join(ff_df, how='inner')[cols]
     df.dropna(inplace=True)
 
-
     return df
-
 
 if __name__ == "__main__":
     tic = 'TSLA'
     df = mk_ret_df(tic)
     print(df)
     df.info()
-

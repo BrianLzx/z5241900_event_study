@@ -1,4 +1,5 @@
 """ _scratch.py
+
 Scratch pad...
 """
 import os
@@ -22,10 +23,12 @@ END = '2020-12-31'
 # ---------------------------------------------------
 def get_data0(tic):
     """ Draft of the get_data function. Will download and save stock prices.
+
     Parameters
     ----------
     tic : str
         Ticker
+
     """
     df = yf.download(tic,
                      start=START,
@@ -38,10 +41,12 @@ def get_data0(tic):
 # ---------------------------------------------------
 def get_data1(tic):
     """ Draft of the get_data function. Will download and save stock prices.
+
     Parameters
     ----------
     tic : str
         Ticker
+
     """
     filename = f'{tic}_prc.csv'
     pth = os.path.join(tk_cfg.DATADIR , filename)
@@ -53,10 +58,12 @@ def get_data1(tic):
 
 def load_prc0(tic):
     """ Loads the stock prices saved by get_data
+
     Parameters
     ----------
     tic : str
         Ticker
+
     """
     filename = f'{tic}_prc.csv'
     pth = os.path.join(tk_cfg.DATADIR , filename)
@@ -66,10 +73,12 @@ def load_prc0(tic):
 
 def load_prc1(tic):
     """ Loads the stock prices saved by get_data
+
     Parameters
     ----------
     tic : str
         Ticker
+
     """
     filename = f'{tic}_prc.csv'
     pth = os.path.join(tk_cfg.DATADIR , filename)

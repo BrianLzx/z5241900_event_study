@@ -73,7 +73,5 @@ def main(tic, update_csv=True):
 
 if __name__ == "__main__":
     tic = 'TSLA'
-    update_csv = False
+    update_csv = True
     main(tic=tic, update_csv=update_csv)
-
-

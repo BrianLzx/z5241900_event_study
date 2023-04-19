@@ -4,8 +4,6 @@ Utilities to test the hypothesis in the study
 """
 
 import pandas as pd
-
-
 # --------------------------------------------------------
 #   Function to calculate t-stats
 # --------------------------------------------------------
@@ -31,4 +29,3 @@ def calc_tstats(event_cars):
     # Construct the result data frame
     res = pd.DataFrame({'car_bar':car_bar, 'car_t': car_t, 'n_obs': car_n})
     return res
-

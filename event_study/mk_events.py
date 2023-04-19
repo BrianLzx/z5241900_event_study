@@ -2,7 +2,6 @@
 
 Utilities to create events from recommendations
 """
-
 import pandas as pd
 
 import event_study.config as cfg
@@ -15,19 +14,19 @@ def mk_event_df(tic):
 
     Parameters
     ----------
-    tic : str 
+    tic : str
         Ticker
 
     Returns
     -------
-    pandas dataframe 
-    
+    pandas dataframe
+
         The columns are:
         * event_date : string
             Date string with format 'YYYY-MM-DD'
         * firm : string
             Name of the firm (upper case)
-        * event_type : string 
+        * event_type : string
             Either "downgrade" or "upgrade"
 
         index: integer
@@ -39,16 +38,15 @@ def mk_event_df(tic):
 
     1. Read the appropriate CSV file with recommendations into a data frame
     2. Create variables identifying the firm and the event date
-    3. Deal with multiple recommendations 
+    3. Deal with multiple recommendations
     4. Create a table with all relevant events
 
     """
 
-
     # ------------------------------------------------------------------------
     # Step 1. Read the appropriate CSV file with recommendations into a data
     # frame
-    # ------------------------------------------------------------------------ 
+    # ------------------------------------------------------------------------
     # Read the source file, set the column 'Date' as a DatetimeIndex
     pth = cfg.csv_locs(tic)['rec_csv']
     df = pd.read_csv(pth, index_col='Date', parse_dates=['Date'])
@@ -56,7 +54,6 @@ def mk_event_df(tic):
     # Standardise column names and keep only the columns of interest
     cols = ['firm', 'action']
     df = cfg.standardise_colnames(df)[cols]
-
 
     # ------------------------------------------------------------------------
     # Step 2. Create variables identifying the firm and the event date
@@ -69,7 +66,6 @@ def mk_event_df(tic):
     # create the 'event_date' column
     df.loc[:, 'event_date'] = df.index.strftime('%Y-%m-%d')
 
-
     # ------------------------------------------------------------------------
     # Step 3. Deal with multiple recommendations
     # ------------------------------------------------------------------------
@@ -80,7 +76,6 @@ def mk_event_df(tic):
     # these indexes to columns
     df = groups.last().reset_index()
 
-
     # ------------------------------------------------------------------------
     # Step 4. Create a table with all relevant events
     # ------------------------------------------------------------------------
@@ -89,6 +84,7 @@ def mk_event_df(tic):
     #   cond = (df['action'] == 'up') | (df['action'] == 'down')
     #   cond = df.loc[:, 'action'].str.contains('up|down')
     cond = df.loc[:, 'action'].str.contains('up|down')
+    #print(cond)
     df = df.loc[cond]
 
     # 4.2: Create a column with the event type ("downgrade" or "upgrade")
@@ -106,6 +102,7 @@ def mk_event_df(tic):
             return 'upgrade'
         else:
             raise Exception(f'Unknown value for column `action`: {value}')
+
     df.loc[:, 'event_type'] = df['action'].apply(_mk_et)
 
     # 4.3 Create the event id index:
@@ -120,7 +117,6 @@ def mk_event_df(tic):
     cols = ['firm', 'event_date', 'event_type']
     df = df[cols]
 
-
     return df
 
 
@@ -129,4 +125,3 @@ if __name__ == "__main__":
     df = mk_event_df(tic)
     print(df)
     df.info()
-
